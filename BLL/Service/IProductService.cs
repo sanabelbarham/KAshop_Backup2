@@ -12,5 +12,7 @@ namespace BLL.Service
     {
         Task<ProductResponce> CreateProduct(ProductRequest request);
         Task<List<ProductResponce>> GetAllProductsForAdmin();
+        Task<List<ProductUserResponce>> GetAllProductsForUser(string lang = "en");
+        Task<ProductUserDetailsResponce> GetAllProductsDetailsForUser(int id, string lang = "en");
     }
 }

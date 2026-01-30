@@ -71,5 +71,25 @@ namespace BLL.Service
 
 
         }
+
+
+        public async Task<List<ProductUserResponce>> GetAllProductsForUser(string lang = "en")
+        {
+            var product = await _productRepository.GetAllAsync();
+
+            var responce = product.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<ProductUserResponce>>();
+
+
+            return responce;
+
+
+        }
+
+        public async Task<ProductUserDetailsResponce> GetAllProductsDetailsForUser(int id,string lang="en")
+        {
+            var product = await _productRepository.FindByIdAsync(id);
+            var responce = product.BuildAdapter().AddParameters("lang", lang).AdaptToType<ProductUserDetailsResponce>();
+            return responce;
+        }
     }
 }

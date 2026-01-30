@@ -14,6 +14,9 @@ namespace BLL.Mappster
 
             public static void MappsterConfigRegister()
         {
+
+            TypeAdapterConfig<Category, CategoryResponce>.NewConfig().Map(des => des.CreatedBy, source => source.User.UserName);
+
             TypeAdapterConfig<Category, CategoryUserResponce>.NewConfig()
                 .Map(des => des.Name, source => source.Translations
                 .Where(t => t.Language == MapContext.Current.Parameters["lang"].ToString())
@@ -21,6 +24,27 @@ namespace BLL.Mappster
 
 
             TypeAdapterConfig<Product, ProductResponce>.NewConfig().Map(des => des.MainImage, source => $"https://localhost:7122/Images/{source.MainImage}");
+
+
+            TypeAdapterConfig<Product, ProductUserResponce>.NewConfig()
+              .Map(des => des.MainImage, source => $"https://localhost:7122/Images/{source.MainImage}")
+                .Map(des => des.Name, source => source.Translations
+               .Where(t => t.Language == MapContext.Current.Parameters["lang"].ToString())
+               .Select(t => t.Name).FirstOrDefault());
+
+
+            TypeAdapterConfig<Product, ProductUserDetailsResponce>.NewConfig()
+            .Map(des => des.MainImage, source => $"https://localhost:7122/Images/{source.MainImage}")
+              .Map(des => des.Name, source => source.Translations
+             .Where(t => t.Language == MapContext.Current.Parameters["lang"].ToString())
+             .Select(t => t.Name).FirstOrDefault())
+
+              .Map(des => des.Description, source => source.Translations
+             .Where(t => t.Language == MapContext.Current.Parameters["lang"].ToString())
+             .Select(t => t.Description).FirstOrDefault());
+
+
+
         }
     }
 }

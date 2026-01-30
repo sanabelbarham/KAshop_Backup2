@@ -30,7 +30,12 @@ namespace DAL.Repository
             return product;
         }
 
-      
+        public async Task<Product> FindByIdAsync(int id)
+        {
+            return await _context.Products.Include(c => c.Translations).FirstOrDefaultAsync(c => c.Id == id);
+
+        }
+        
 
 
     }

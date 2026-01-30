@@ -19,9 +19,9 @@ namespace KAshop2Rep.Area.User
             _stringLocalizer = stringLocalizer;
         }
         [HttpGet("")]
-        public IActionResult Index([FromQuery] string lang = "en")
+        public async Task <IActionResult> Index([FromQuery] string lang = "en")
         {
-            var responce = _categoryService.GetAllCategoriesForUser(lang);
+            var responce = await _categoryService.GetAllCategoriesForUser(lang);
             return Ok(new { message = _stringLocalizer["Success"].Value,responce });
        
 

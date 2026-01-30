@@ -11,5 +11,6 @@ namespace DAL.Repository
     {
         Task<Product> AddAsync(Product product);
         Task<List<Product>> GetAllAsync();
+         Task<Product> FindByIdAsync(int id);
     }
 }
