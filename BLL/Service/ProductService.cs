@@ -110,14 +110,14 @@ namespace BLL.Service
 
                 }else if(sortBy == "name")
                 {
-                    query = asc ? query.OrderBy(p => p.Translations.FirstOrDefault(t=>t.Language==lang) .Name)
-                  : query.OrderByDescending(p => p.Translations.FirstOrDefault(t=>t.Language==lang).Name)
+                    query = asc ? query.OrderBy(p => p.Translations.FirstOrDefault(t => t.Language == lang).Name)
+                  : query.OrderByDescending(p => p.Translations.FirstOrDefault(t => t.Language == lang).Name);
                     
 
                 }
                 else if (sortBy == "rate")
                 {
-
+                    query = asc ? query.OrderBy(p => p.Rate) : query.OrderByDescending(p => p.Rate);
                 }
             }
 

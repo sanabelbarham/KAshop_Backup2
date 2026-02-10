@@ -14,9 +14,10 @@ namespace BLL.Service
         Task<List<ProductResponce>> GetAllProductsForAdmin();
         Task<List<ProductUserDetailsResponce>> GetAllProductsForUser(int id, string lang = "en");
         Task<PaginatedResponce<ProductUserResponce>> GetAllProductsForUser(string lang = "en",
-              int page = 1, int limit = 3, string? search = null,
-              int? categoryId = null, decimal? minPrice = null, decimal? maxPrice = null
+                int page = 1, int limit = 3, string? search = null,
+                int? categoryId = null, decimal? minPrice = null, decimal? maxPrice = null,
+                string? sortBy = null, bool asc = true
 
-              );
+                );
     }
 }

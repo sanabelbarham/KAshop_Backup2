@@ -5,6 +5,7 @@ using DAL.Data;
 using DAL.Identity;
 using DAL.Repository;
 using DAL.Utilis;
+using KAshop2Rep.MiddleWare;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -138,6 +139,7 @@ namespace KAshop2Rep
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseExceptionHandler();
             }
             app.UseStaticFiles();
 
@@ -158,6 +160,8 @@ namespace KAshop2Rep
                     await seeder.DataSeed();
                 }
             }
+
+         
 
             // Run the server
             app.Run();

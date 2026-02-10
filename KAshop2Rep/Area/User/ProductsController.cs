@@ -22,9 +22,12 @@ namespace KAshop2Rep.Area.User
         [HttpGet("")]
         public async Task <IActionResult> Index([FromQuery] string lang = "en", [FromQuery] int page = 1,
             [FromQuery] int limit = 3, [FromQuery]string? search=null, [FromQuery] int? categoryId=null,
-            [FromQuery ] decimal? minPrice=null, [FromQuery] decimal? maxPrice = null)
+            [FromQuery ] decimal? minPrice=null, [FromQuery] decimal? maxPrice = null, [FromQuery] string? sortBy = null, [FromQuery]bool asc = true)
+       
+
+
         {
-            var responce =await _ProductService.GetAllProductsForUser(lang,page,limit);
+            var responce =await _ProductService.GetAllProductsForUser(lang,page,limit,search,categoryId,minPrice,maxPrice,sortBy,asc);
             return Ok(new { message = _stringLocalizer["Success"].Value, responce });
 
 
