@@ -1,3 +1,4 @@
+using BLL;
 using BLL.Mappster;
 using BLL.Service;
 using DAL.Data;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
 using System.Globalization;
 using System.Text;
 
@@ -120,6 +122,9 @@ namespace KAshop2Rep
 
             AppConfigurations.Config(builder.Services);
           MappsterConfig.MappsterConfigRegister();
+
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
             // =========================
             // Build the app

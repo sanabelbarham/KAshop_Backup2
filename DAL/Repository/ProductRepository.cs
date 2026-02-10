@@ -1,4 +1,5 @@
 ﻿using DAL.Data;
+using DAL.DTO.Response;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -35,8 +36,33 @@ namespace DAL.Repository
             return await _context.Products.Include(c => c.Translations).FirstOrDefaultAsync(c => c.Id == id);
 
         }
-        
+
+        public IQueryable<Product> Query()
+        {
+            return _context.Products.Include(p => p.Translations).AsQueryable();
+        }
+        public async Task<bool> DecreaseQuantityAsync( List<(int productId, int quentity)> items)
+        {
+            var productIds = items.Select(p => p.productId).ToList();
+            var products = await _context.Products.Where(p => productIds.Contains(p.Id)).ToListAsync();
+
+            foreach (var product in products)
+            {
+                var item = items.FirstOrDefault(p => p.productId == product.Id);
+                if (product.Quantity < item.quentity)
+                {
+                    return false;
+                }
+
+                product.Quantity -= item.quentity;
+            }
+      
+           
 
 
+            await _context.SaveChangesAsync();
+            return true;
+     
+        }
     }
 }

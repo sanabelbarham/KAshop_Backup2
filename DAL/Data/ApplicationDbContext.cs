@@ -19,6 +19,10 @@ namespace DAL.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<CategoriesTranslation> CategoryTranslations { get; set; }
         public DbSet<ProductTranslations> ProductTranslations { get; set; }
@@ -43,6 +47,25 @@ namespace DAL.Data
                 .WithMany()
                 .HasForeignKey(c => c.CreatedBy)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Cart>()
+             .HasOne(c => c.User)
+             .WithMany()
+             .HasForeignKey(c => c.UserId)
+             .OnDelete(DeleteBehavior.NoAction);
+
+           builder.Entity<Order>()
+          .HasOne(c => c.User)
+          .WithMany()
+          .HasForeignKey(c => c.UserId)
+          .OnDelete(DeleteBehavior.NoAction);
+
+           builder.Entity<Product>()
+          .HasOne(c => c.User)
+          .WithMany()
+          .HasForeignKey(c => c.CreatedBy)
+          .OnDelete(DeleteBehavior.NoAction);
+
 
 
         }

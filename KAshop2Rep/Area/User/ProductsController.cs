@@ -20,9 +20,10 @@ namespace KAshop2Rep.Area.User
             _stringLocalizer = stringLocalizer;
         }
         [HttpGet("")]
-        public async Task <IActionResult> Index([FromQuery] string lang = "en")
+        public async Task <IActionResult> Index([FromQuery] string lang = "en", [FromQuery] int page = 1,
+            [FromQuery] int limit = 3, [FromQuery]string? search=null)
         {
-            var responce =await _ProductService.GetAllProductsForUser(lang);
+            var responce =await _ProductService.GetAllProductsForUser(lang,page,limit);
             return Ok(new { message = _stringLocalizer["Success"].Value, responce });
 
 
@@ -31,7 +32,7 @@ namespace KAshop2Rep.Area.User
         [HttpGet("{id}")]
         public async Task<IActionResult> Index([FromRoute] int id, [FromQuery] string lang = "en")
         {
-            var responce = await _ProductService.GetAllProductsDetailsForUser(id,lang);
+            var responce = await _ProductService.GetAllProductsForUser(id,lang);
             return Ok(new { message = _stringLocalizer["Success"].Value, responce });
 
 

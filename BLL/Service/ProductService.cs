@@ -3,6 +3,7 @@ using DAL.DTO.Response;
 using DAL.Models;
 using DAL.Repository;
 using Mapster;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,11 +74,20 @@ namespace BLL.Service
         }
 
 
-        public async Task<List<ProductUserResponce>> GetAllProductsForUser(string lang = "en")
+        public async Task<List<ProductUserResponce>> GetAllProductsForUser(string lang = "en",int page=1, int limit=3, string? search=null)
         {
-            var product = await _productRepository.GetAllAsync();
+            var query = _productRepository.Query();
 
-            var responce = product.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<ProductUserResponce>>();
+            if(search is not null)
+            {
+                query = query.Where(p => p.Translations.Any(t => t.Language == lang && t.Name.Contains(search)|| t.Description.Contains(search) ));
+
+            }
+            var totalCount =await query.CountAsync();
+            query = query.Skip((page - 1) * limit).Take(limit);
+             
+
+            var responce = query.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<ProductUserResponce>>();
 
 
             return responce;
@@ -85,10 +95,12 @@ namespace BLL.Service
 
         }
 
-        public async Task<ProductUserDetailsResponce> GetAllProductsDetailsForUser(int id,string lang="en")
+     
+
+        public async Task<List<ProductUserDetailsResponce>> GetAllProductsForUser(int id, string lang = "en")
         {
             var product = await _productRepository.FindByIdAsync(id);
-            var responce = product.BuildAdapter().AddParameters("lang", lang).AdaptToType<ProductUserDetailsResponce>();
+            var responce = product.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<ProductUserDetailsResponce>>();
             return responce;
         }
     }
