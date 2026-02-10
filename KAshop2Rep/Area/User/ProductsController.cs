@@ -21,7 +21,8 @@ namespace KAshop2Rep.Area.User
         }
         [HttpGet("")]
         public async Task <IActionResult> Index([FromQuery] string lang = "en", [FromQuery] int page = 1,
-            [FromQuery] int limit = 3, [FromQuery]string? search=null)
+            [FromQuery] int limit = 3, [FromQuery]string? search=null, [FromQuery] int? categoryId=null,
+            [FromQuery ] decimal? minPrice=null, [FromQuery] decimal? maxPrice = null)
         {
             var responce =await _ProductService.GetAllProductsForUser(lang,page,limit);
             return Ok(new { message = _stringLocalizer["Success"].Value, responce });

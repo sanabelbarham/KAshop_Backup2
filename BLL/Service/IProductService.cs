@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace BLL.Service
 {
-   public  interface IProductService
+    public interface IProductService
     {
         Task<ProductResponce> CreateProduct(ProductRequest request);
         Task<List<ProductResponce>> GetAllProductsForAdmin();
-        Task<List<ProductUserDetailsResponce>> GetAllProductsForUser(int id,string lang = "en");
-        Task<List<ProductUserResponce>> GetAllProductsForUser(string lang = "en", int page = 1, int limit = 3, string? search = null);    }
+        Task<List<ProductUserDetailsResponce>> GetAllProductsForUser(int id, string lang = "en");
+        Task<PaginatedResponce<ProductUserResponce>> GetAllProductsForUser(string lang = "en",
+              int page = 1, int limit = 3, string? search = null,
+              int? categoryId = null, decimal? minPrice = null, decimal? maxPrice = null
+
+              );
+    }
 }
