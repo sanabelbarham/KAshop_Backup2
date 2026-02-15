@@ -29,6 +29,7 @@ namespace KAshop2Rep
             Services.AddScoped<ICheckoutService,CheckoutService >();
             Services.AddScoped<IOrderRepository,OrderRepository >();
             Services.AddScoped<IOrderItemRepository,OrderItemRepository >();
+            Services.AddScoped<IOrderService,OrderService >();
             Services.AddExceptionHandler<GlobalExceptionHandller>();
             Services.AddProblemDetails();
         }

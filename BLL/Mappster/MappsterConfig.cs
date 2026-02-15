@@ -43,6 +43,9 @@ namespace BLL.Mappster
              .Where(t => t.Language == MapContext.Current.Parameters["lang"].ToString())
              .Select(t => t.Description).FirstOrDefault());
 
+            TypeAdapterConfig<Order, OrderResponce>.NewConfig()
+                .Map(des => des.UserName, source => source.User.UserName);
+
 
 
         }

@@ -68,5 +68,12 @@ namespace DAL.Repository
 
 
         }
+
+         public async Task DeleteAsync(Cart cart)
+        {
+            _context.Carts.Remove(cart);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

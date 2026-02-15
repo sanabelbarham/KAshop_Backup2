@@ -21,12 +21,21 @@ namespace DAL.Models
      
 
     }
-  public  class Order
+
+    public enum PaymentStatusEnum
+    {
+        paid = 2,
+        unpaid = 1
+
+
+    }
+    public  class Order
     {
         public int Id { get; set; }
         public OrderStatusEnum OrderStatus { get; set; } = OrderStatusEnum.Pending;
         public DateTime OrderDate { get; set; }
         public DateTime ShippedDate { get; set; }
+        public PaymentStatusEnum? PaymentStatus{ get; set; }
 
  
         public string? SessionId { get; set; }// is a number created by stripe for any paying attempt fail or success

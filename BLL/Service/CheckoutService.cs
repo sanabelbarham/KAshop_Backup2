@@ -70,7 +70,8 @@ namespace BLL.Service
             {
                 UserId = userId,
                 PaymentMethod = request.PaymentMethod,
-                AmountPaid = totoalPrice
+                AmountPaid = totoalPrice,
+                PaymentStatus=PaymentStatusEnum.unpaid
             };
 
 
@@ -118,6 +119,7 @@ namespace BLL.Service
                 var service = new SessionService();
                 var session = service.Create(options);
                 order.SessionId = session.Id;
+                order.PaymentStatus = PaymentStatusEnum.paid;
                 await _orderRepository.CreateAsync(order);
 
                 return new CheckoutResponce
